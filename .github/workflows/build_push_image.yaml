@@ -3,11 +3,11 @@ name: Build and Push Docker Images
 on:
   pull_request:
     branches:
-      - main 
+      - main
   push:
     branches:
-      - main
-      - release/* 
+      - release/*
+      - master
 
 jobs:
   build-and-push:
@@ -34,13 +34,17 @@ jobs:
         id: commit_sha
         run: echo "::set-output name=sha::$(echo ${{ github.sha }} | cut -c1-7)"
 
+      - name: Set repository name to lowercase
+        id: repo_name
+        run: echo "::set-output name=repo::$(echo '${{ github.repository }}' | tr '[:upper:]' '[:lower:]')"
+
       - name: Build and push Docker image (PR)
         if: github.event_name == 'pull_request'
         uses: docker/build-push-action@v4
         with:
           context: .
           push: true
-          tags: ghcr.io/${{ github.repository }}:snap-${{ steps.commit_sha.outputs.sha }}
+          tags: ghcr.io/${{ steps.repo_name.outputs.repo }}:snap-${{ steps.commit_sha.outputs.sha }}
 
       - name: Extract version from branch name
         if: startsWith(github.ref, 'refs/heads/release/')
@@ -76,10 +80,18 @@ jobs:
           context: .
           push: true
           tags: |
-            ghcr.io/${{ github.repository }}:${{ steps.increment_version.outputs.new_version }}
-            ghcr.io/${{ github.repository }}:${{ steps.version.outputs.version }}-latest
+            ghcr.io/${{ steps.repo_name.outputs.repo }}:${{ steps.increment_version.outputs.new_version }}
+            ghcr.io/${{ steps.repo_name.outputs.repo }}:${{ steps.version.outputs.version }}-latest
           cache-from: type=gha
           cache-to: type=gha,mode=max
+
+      - name: Build and push Docker image (Master)
+        if: github.ref == 'refs/heads/master'
+        uses: docker/build-push-action@v4
+        with:
+          context: .
+          push: true
+          tags: ghcr.io/${{ steps.repo_name.outputs.repo }}:latest
 
       - name: Create Git tag (Release)
         if: startsWith(github.ref, 'refs/heads/release/')
