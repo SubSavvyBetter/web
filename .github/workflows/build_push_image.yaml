@@ -7,7 +7,7 @@ on:
   push:
     branches:
       - release/*
-      - master
+      - main
 
 jobs:
   build-and-push:
@@ -85,8 +85,8 @@ jobs:
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
-      - name: Build and push Docker image (Master)
-        if: github.ref == 'refs/heads/master'
+      - name: Build and push Docker image (main)
+        if: github.ref == 'refs/heads/main'
         uses: docker/build-push-action@v4
         with:
           context: .
