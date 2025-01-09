@@ -1,7 +1,6 @@
 import React from "react";
 import "./LoginPage.css";
 import logo from "../assets/logo.svg";
-import backgroundPattern from "../assets/background-pattern.png";
 
 const LoginPage = () => {
   return (
