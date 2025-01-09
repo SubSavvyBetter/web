@@ -190,7 +190,7 @@ body {
 
     background-color: #2d2d52;
     border-radius: 15px;
-    width: 90%;
+    width: 50vw;
     box-shadow: 1px 1px 0px rgba(255, 255, 255, 0.2);
   }
 
@@ -203,16 +203,6 @@ body {
 
   .left-box {
     margin-right: 0; 
-  }
-
-  .right-box {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-  }
-
-  .input-container {
-    width: 100%;
   }
 
   .logo img {
@@ -246,6 +236,16 @@ body {
     transition: 0.2s;
   }
 
+  .right-box {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .input-container {
+    width: 100%;
+  }
+
   .login-input {
     background-color: #2d2d52;
     border: 1px solid #fff;
@@ -254,7 +254,7 @@ body {
     color: #fff;
     outline: none;
     font-size: 0.8em;
-    width: 80%;
+    width: 75%;
     height: 20px;
     margin-top: 10px;
   }
