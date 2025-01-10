@@ -2,18 +2,14 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import "./SignupPageEmail.css";
 import logo from "/logo.svg";
+import SignupAuthChecks from "./authChecks/SignupAuthChecks";
 
 const SignupPageEmail = () => {
-  const [email, setEmail] = useState("");
-  const [isValidEmail, setIsValidEmail] = useState(false);
-
-  const handleEmailchange = (e) => {
-    const emailValue = e.target.value;
-    setEmail(emailValue);
-
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    setIsValidEmail(emailRegex.test(emailValue));
-  }
+  const {
+    email,
+    isValidEmail,
+    handleEmailChange
+  } = SignupAuthChecks();
   
   return (
     <div className="background-pattern">
@@ -37,7 +33,7 @@ const SignupPageEmail = () => {
                 placeholder="Email" 
                 className="login-input"
                 value={email}
-                onChange={handleEmailchange}
+                onChange={handleEmailChange}
               />
             </div>
 

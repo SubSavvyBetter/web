@@ -1,9 +1,18 @@
-import React from "react";
+import React, {useState} from "react";
 import { Link } from "react-router-dom";
 import "./LoginPage.css";
 import logo from "/logo.svg";
+import LoginAuthChecks from "./authChecks/LoginAuthChecks.jsx";
 
 const LoginPage = () => {
+  const {
+    email,
+    password,
+    isFormValid,
+    handleEmailChange,
+    handlePasswordChange
+  } = LoginAuthChecks();
+  
   return (
     <div className="background-pattern">
       <div className="login-container">
@@ -21,11 +30,19 @@ const LoginPage = () => {
 
           <div className="right-box">
             <div className="input-container">
-              <input type="email" placeholder="Email" className="login-input" />
+              <input 
+                type="email" 
+                placeholder="Email" 
+                className="login-input"
+                value={email}
+                onChange={handleEmailChange}
+              />
               <input
                 type="password"
                 placeholder="Password"
                 className="login-input"
+                value={password}
+                onChange={handlePasswordChange}
               />
             </div>
 
@@ -37,7 +54,12 @@ const LoginPage = () => {
                   alt="Google logo"
                 />
               </button>
-              <button className="submit-login">Log in</button>
+              <button
+                className={`submit-login ${isFormValid ? "" : "disabled"}`}
+                disabled={!isFormValid}
+              >
+                Log in
+              </button>
             </div>
           </div>
         </div>
