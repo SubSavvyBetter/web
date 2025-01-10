@@ -95,13 +95,14 @@ body {
     margin-top: 10px;
   }
 
-  .login-subtext span {
+  .login-link {
     color: #fff;
     font-weight: bold;
     cursor: pointer;
   }
 
-  .login-subtext span:hover {
+  .login-link:hover {
+    color: #fff;
     text-decoration: underline;
     transition: 0.2s;
   }

@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import "./LoginPage.css";
 import logo from "/logo.svg";
 
@@ -14,7 +15,7 @@ const LoginPage = () => {
             <h1 className="login-title">Log in</h1>
             <p className="login-subtext">
               Don't have an account? <br />
-              <span>Create your account</span>
+              <Link to='/signup' className="signup-link">Create your account</Link>
             </p>
           </div>
 

@@ -1,8 +1,9 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import "./SignupPageInfo.css";
 import logo from "/logo.svg";
 
-const LoginPage = () => {
+const SignupPageInfo = () => {
   return (
     <div className="background-pattern">
       <div className="login-container">
@@ -14,7 +15,7 @@ const LoginPage = () => {
             <h1 className="login-title">Sign up</h1>
             <p className="login-subtext">
               Already have an account? <br />
-              <span>Log in</span>
+              <Link to='/login' className="login-link">Log in</Link>
             </p>
           </div>
 
@@ -50,4 +51,4 @@ const LoginPage = () => {
   );
 };
 
-export default LoginPage;
+export default SignupPageInfo;
