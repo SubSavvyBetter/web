@@ -179,6 +179,17 @@ body {
     color: #fff;
   }
 
+  .submit-login.disabled {
+    color: #fff;
+    background-color: #22223f;
+    cursor: not-allowed;
+  }
+
+  .submit-login.disabled:hover {
+    color: #fff;
+    background-color: #22223f;
+  } 
+
   .google-login img {
     width: 18px;
     margin-left: 8px;

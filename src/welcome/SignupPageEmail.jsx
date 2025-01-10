@@ -1,9 +1,20 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import "./SignupPageEmail.css";
 import logo from "/logo.svg";
 
 const SignupPageEmail = () => {
+  const [email, setEmail] = useState("");
+  const [isValidEmail, setIsValidEmail] = useState(false);
+
+  const handleEmailchange = (e) => {
+    const emailValue = e.target.value;
+    setEmail(emailValue);
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    setIsValidEmail(emailRegex.test(emailValue));
+  }
+  
   return (
     <div className="background-pattern">
       <div className="login-container">
@@ -21,7 +32,13 @@ const SignupPageEmail = () => {
 
           <div className="right-box">
             <div className="input-container">
-              <input type="email" placeholder="Email" className="login-input" />
+              <input 
+                type="email" 
+                placeholder="Email" 
+                className="login-input"
+                value={email}
+                onChange={handleEmailchange}
+              />
             </div>
 
             <div className="login-actions">
@@ -32,7 +49,16 @@ const SignupPageEmail = () => {
                   alt="Google logo"
                 />
               </button>
-              <button className="submit-login"><Link to='/signup/info' className="submit-link">Next</Link></button>
+              <button 
+                className={`submit-login ${isValidEmail ? "" : "disabled"}`}
+                disabled={!isValidEmail}
+              >
+                {isValidEmail ? (
+                  <Link to='/signup/info' className="submit-link">Next</Link>
+                  ) : (
+                    "Next"
+                  )}
+              </button>
             </div>
           </div>
         </div>
