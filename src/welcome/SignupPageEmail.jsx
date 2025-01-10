@@ -1,9 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import "./SignupPageEmail.css";
 import logo from "/logo.svg";
+import SignupAuthChecks from "./authChecks/SignupAuthChecks";
 
 const SignupPageEmail = () => {
+  const {
+    email,
+    isValidEmail,
+    handleEmailChange
+  } = SignupAuthChecks();
+  
   return (
     <div className="background-pattern">
       <div className="login-container">
@@ -21,7 +28,13 @@ const SignupPageEmail = () => {
 
           <div className="right-box">
             <div className="input-container">
-              <input type="email" placeholder="Email" className="login-input" />
+              <input 
+                type="email" 
+                placeholder="Email" 
+                className="login-input"
+                value={email}
+                onChange={handleEmailChange}
+              />
             </div>
 
             <div className="login-actions">
@@ -32,7 +45,16 @@ const SignupPageEmail = () => {
                   alt="Google logo"
                 />
               </button>
-              <button className="submit-login"><Link to='/signup/info' className="submit-link">Next</Link></button>
+              <button 
+                className={`submit-login ${isValidEmail ? "" : "disabled"}`}
+                disabled={!isValidEmail}
+              >
+                {isValidEmail ? (
+                  <Link to='/signup/info' className="submit-link">Next</Link>
+                  ) : (
+                    "Next"
+                  )}
+              </button>
             </div>
           </div>
         </div>
