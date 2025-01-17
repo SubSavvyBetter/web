@@ -1,4 +1,3 @@
 export const ENDPOINTS = {
-    families: '/family'
-}
-
+    families: '/family',
+};

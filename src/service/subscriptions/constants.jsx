@@ -1,4 +1,3 @@
-export const ENDPOINTS ={
-    'subscriptions': '/subscriptions'
-        
-}
+export const ENDPOINTS = {
+    subscriptions: '/subscriptions',
+};

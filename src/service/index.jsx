@@ -1,6 +1,6 @@
 const API_URL = 'http//localhost:8080';
 
-async function customFetchAuth(method, endpoint, body = null, headers = {}) {
+export const customFetchAuth = async  (method, endpoint, body = null, headers = {}) => {
     // if theres is headers passed then append token
     const token = getTokenFromLocalStorage();
     if (!token) throw 'A01'; // thow missing token error code

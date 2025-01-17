@@ -10,8 +10,4 @@ async function getUserById(id) {
     return customFetchAuth('GET', updatedUrl);
 }
 
-
-export {
-    getUserById,
-    getUsers
-}
+export { getUserById, getUsers };
