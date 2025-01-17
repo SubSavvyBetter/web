@@ -1133,6 +1133,11 @@ hasown@^2.0.0, hasown@^2.0.1, hasown@^2.0.2:
   dependencies:
     function-bind "^1.1.2"
 
+husky@^9.1.7:
+  version "9.1.7"
+  resolved "https://registry.yarnpkg.com/husky/-/husky-9.1.7.tgz#d46a38035d101b46a70456a850ff4201344c0b2d"
+  integrity sha512-5gs5ytaNjBrh5Ow3zrvdUUY+0VxIuWVL4i9irt6friV+BqdCfmV11CQTWMiBYWHbXhco+J1kHfTOUkePhCDvMA==
+
 ignore@^5.2.0:
   version "5.3.2"
   resolved "https://registry.npmjs.org/ignore/-/ignore-5.3.2.tgz"
@@ -1565,6 +1570,11 @@ prelude-ls@^1.2.1:
   resolved "https://registry.npmjs.org/prelude-ls/-/prelude-ls-1.2.1.tgz"
   integrity sha512-vkcDPrRZo1QZLbn5RLGPpg/WmIQ65qoWWhcGKf/b5eplkkarX0m9z8ppCat4mlOqUsWpyNuYgO3VRyrYHSzX5g==
 
+prettier@^3.4.2:
+  version "3.4.2"
+  resolved "https://registry.yarnpkg.com/prettier/-/prettier-3.4.2.tgz#a5ce1fb522a588bf2b78ca44c6e6fe5aa5a2b13f"
+  integrity sha512-e9MewbtFo+Fevyuxn/4rrcDAaq0IYxPGLvObpQjiZBMAzB9IGmzlnG9RZy3FFas+eBMu2vA0CszMeduow5dIuQ==
+
 prop-types@^15.8.1:
   version "15.8.1"
   resolved "https://registry.npmjs.org/prop-types/-/prop-types-15.8.1.tgz"
@@ -1828,9 +1838,11 @@ strip-json-comments@^3.1.1:
 "subsavvy-web@file:.":
   version "0.0.0"
   dependencies:
+    prettier "^3.4.2"
     react "^18.3.1"
     react-dom "^18.3.1"
-    subsavvy-web "file:../../../../Library/Caches/Yarn/v6/npm-subsavvy-web-0.0.0-0d61be56-1795-4c5f-81b2-4f7da47db796-1736515117127/node_modules/subsavvy-web"
+    react-router-dom "^7.1.1"
+    subsavvy-web "file:../../../../.cache/yarn/v6/npm-subsavvy-web-0.0.0-13a66311-4133-40c6-ab63-85424faa66f4-1737102705423/node_modules/subsavvy-web"
 
 supports-color@^7.1.0:
   version "7.2.0"

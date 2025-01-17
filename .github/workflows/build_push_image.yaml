@@ -1,106 +1,106 @@
 name: Build and Push Docker Images
 
 on:
-  pull_request:
-    branches:
-      - main
-  push:
-    branches:
-      - release/*
-      - main
+    pull_request:
+        branches:
+            - main
+    push:
+        branches:
+            - release/*
+            - main
 
 jobs:
-  build-and-push:
-    runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      packages: write
+    build-and-push:
+        runs-on: ubuntu-latest
+        permissions:
+            contents: read
+            packages: write
 
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v3
 
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v2
+            - name: Set up Docker Buildx
+              uses: docker/setup-buildx-action@v2
 
-      - name: Login to GitHub Container Registry
-        uses: docker/login-action@v2
-        with:
-          registry: ghcr.io
-          username: ${{ github.repository_owner }}
-          password: ${{ secrets.GITHUB_TOKEN }}
+            - name: Login to GitHub Container Registry
+              uses: docker/login-action@v2
+              with:
+                  registry: ghcr.io
+                  username: ${{ github.repository_owner }}
+                  password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Extract commit SHA
-        id: commit_sha
-        run: echo "::set-output name=sha::$(echo ${{ github.sha }} | cut -c1-7)"
+            - name: Extract commit SHA
+              id: commit_sha
+              run: echo "::set-output name=sha::$(echo ${{ github.sha }} | cut -c1-7)"
 
-      - name: Set repository name to lowercase
-        id: repo_name
-        run: echo "::set-output name=repo::$(echo '${{ github.repository }}' | tr '[:upper:]' '[:lower:]')"
+            - name: Set repository name to lowercase
+              id: repo_name
+              run: echo "::set-output name=repo::$(echo '${{ github.repository }}' | tr '[:upper:]' '[:lower:]')"
 
-      - name: Build and push Docker image (PR)
-        if: github.event_name == 'pull_request'
-        uses: docker/build-push-action@v4
-        with:
-          context: .
-          push: true
-          tags: ghcr.io/${{ steps.repo_name.outputs.repo }}:snap-${{ steps.commit_sha.outputs.sha }}
+            - name: Build and push Docker image (PR)
+              if: github.event_name == 'pull_request'
+              uses: docker/build-push-action@v4
+              with:
+                  context: .
+                  push: true
+                  tags: ghcr.io/${{ steps.repo_name.outputs.repo }}:snap-${{ steps.commit_sha.outputs.sha }}
 
-      - name: Extract version from branch name
-        if: startsWith(github.ref, 'refs/heads/release/')
-        id: version
-        run: echo "::set-output name=version::$(echo ${{ github.ref_name }} | cut -d '/' -f 2)"
-        shell: bash
+            - name: Extract version from branch name
+              if: startsWith(github.ref, 'refs/heads/release/')
+              id: version
+              run: echo "::set-output name=version::$(echo ${{ github.ref_name }} | cut -d '/' -f 2)"
+              shell: bash
 
-      - name: Get latest tag for version
-        if: startsWith(github.ref, 'refs/heads/release/')
-        id: latest_tag
-        run: |
-          latest=$(git describe --tags --abbrev=0 --match "v${{ steps.version.outputs.version }}.*" 2>/dev/null || echo "v${{ steps.version.outputs.version }}.0")
-          echo "::set-output name=tag::$latest"
-          echo "latest tag $latest"
-        shell: bash
+            - name: Get latest tag for version
+              if: startsWith(github.ref, 'refs/heads/release/')
+              id: latest_tag
+              run: |
+                  latest=$(git describe --tags --abbrev=0 --match "v${{ steps.version.outputs.version }}.*" 2>/dev/null || echo "v${{ steps.version.outputs.version }}.0")
+                  echo "::set-output name=tag::$latest"
+                  echo "latest tag $latest"
+              shell: bash
 
-      - name: Increment version
-        if: startsWith(github.ref, 'refs/heads/release/')
-        id: increment_version
-        run: |
-          current_version="${{ steps.latest_tag.outputs.tag }}"
-          IFS='.' read -r major minor patch <<< "${current_version:1}" # Remove leading 'v'
-          patch=$((patch + 1))
-          new_version="v${{ steps.version.outputs.version }}.$patch"
-          echo "::set-output name=new_version::$new_version"
-          echo "new version $new_version"
-        shell: bash
+            - name: Increment version
+              if: startsWith(github.ref, 'refs/heads/release/')
+              id: increment_version
+              run: |
+                  current_version="${{ steps.latest_tag.outputs.tag }}"
+                  IFS='.' read -r major minor patch <<< "${current_version:1}" # Remove leading 'v'
+                  patch=$((patch + 1))
+                  new_version="v${{ steps.version.outputs.version }}.$patch"
+                  echo "::set-output name=new_version::$new_version"
+                  echo "new version $new_version"
+              shell: bash
 
-      - name: Build and push Docker image (Release)
-        if: startsWith(github.ref, 'refs/heads/release/')
-        uses: docker/build-push-action@v4
-        with:
-          context: .
-          push: true
-          tags: |
-            ghcr.io/${{ steps.repo_name.outputs.repo }}:${{ steps.increment_version.outputs.new_version }}
-            ghcr.io/${{ steps.repo_name.outputs.repo }}:${{ steps.version.outputs.version }}-latest
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
+            - name: Build and push Docker image (Release)
+              if: startsWith(github.ref, 'refs/heads/release/')
+              uses: docker/build-push-action@v4
+              with:
+                  context: .
+                  push: true
+                  tags: |
+                      ghcr.io/${{ steps.repo_name.outputs.repo }}:${{ steps.increment_version.outputs.new_version }}
+                      ghcr.io/${{ steps.repo_name.outputs.repo }}:${{ steps.version.outputs.version }}-latest
+                  cache-from: type=gha
+                  cache-to: type=gha,mode=max
 
-      - name: Build and push Docker image (main)
-        if: github.ref == 'refs/heads/main'
-        uses: docker/build-push-action@v4
-        with:
-          context: .
-          push: true
-          tags: ghcr.io/${{ steps.repo_name.outputs.repo }}:latest
+            - name: Build and push Docker image (main)
+              if: github.ref == 'refs/heads/main'
+              uses: docker/build-push-action@v4
+              with:
+                  context: .
+                  push: true
+                  tags: ghcr.io/${{ steps.repo_name.outputs.repo }}:latest
 
-      - name: Create Git tag (Release)
-        if: startsWith(github.ref, 'refs/heads/release/')
-        uses: actions/github-script@v6
-        with:
-          script: |
-            github.rest.git.createRef({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              ref: 'refs/tags/${{ steps.increment_version.outputs.new_version }}',
-              sha: context.sha
-            })
+            - name: Create Git tag (Release)
+              if: startsWith(github.ref, 'refs/heads/release/')
+              uses: actions/github-script@v6
+              with:
+                  script: |
+                      github.rest.git.createRef({
+                        owner: context.repo.owner,
+                        repo: context.repo.repo,
+                        ref: 'refs/tags/${{ steps.increment_version.outputs.new_version }}',
+                        sha: context.sha
+                      })

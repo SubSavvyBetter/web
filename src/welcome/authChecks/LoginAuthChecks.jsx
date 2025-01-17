@@ -1,11 +1,11 @@
-import React, {useState, useEffect} from "react";
+import React, { useState, useEffect } from 'react';
 
 const LoginAuthChecks = () => {
-    const [email, setEmail] = useState("")
+    const [email, setEmail] = useState('');
     const [isValidEmail, setIsValidEmail] = useState(false);
-    const [password, setPassword] = useState("")
+    const [password, setPassword] = useState('');
     const [isFormValid, setIsFormValid] = useState(false);
-    
+
     //TODO: Add email check for Login with email in DB
     //TODO: Add password check for Login with password in DB
 
@@ -22,7 +22,7 @@ const LoginAuthChecks = () => {
     };
 
     const handlePasswordChange = (e) => {
-        setPassword(e.target.value)
+        setPassword(e.target.value);
     };
 
     return {
