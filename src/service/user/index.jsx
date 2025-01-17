@@ -1,4 +1,4 @@
-import { customFetch, customFetchAuth } from '../index.jsx';
+import { customFetchAuth } from '../index.jsx';
 import { ENDPOINTS } from './constants.jsx';
 
 async function getUsers() {
@@ -7,5 +7,11 @@ async function getUsers() {
 
 async function getUserById(id) {
     const updatedUrl = `${ENDPOINTS.user}${id}`;
-    return customFetchAuth('GET', ENDPOINTS.users);
+    return customFetchAuth('GET', updatedUrl);
+}
+
+
+export {
+    getUserById,
+    getUsers
 }
