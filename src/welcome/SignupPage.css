@@ -136,7 +136,7 @@ body {
     flex-direction: row;
 
     gap: 15px;
-    margin-top: 30px;
+    margin-top: 20px;
     width: 260px;
   }
 
@@ -166,29 +166,10 @@ body {
 
   .submit-login {
     background-color: #22223f;
+    color: #fff;
     margin-right: -12px;
     font-size: 1em;
   }
-
-  .submit-link {
-    width: 100%;
-    color: #fff;
-  }
-
-  .submit-link:hover {
-    color: #fff;
-  }
-
-  .submit-login.disabled {
-    color: #fff;
-    background-color: #22223f;
-    cursor: not-allowed;
-  }
-
-  .submit-login.disabled:hover {
-    color: #fff;
-    background-color: #22223f;
-  } 
 
   .google-login img {
     width: 18px;
@@ -245,13 +226,13 @@ body {
     margin-top: 10px;
   }
 
-  .login-link {
+  .login-subtext span {
     color: #fff;
     font-weight: bold;
     cursor: pointer;
   }
 
-  .login-link:hover {
+  .login-subtext span:hover {
     text-decoration: underline;
     transition: 0.2s;
   }

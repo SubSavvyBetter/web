@@ -1,16 +1,22 @@
-import React, { useState } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
-import "./SignupPageEmail.css";
+import "./SignupPage.css";
 import logo from "/logo.svg";
 import SignupAuthChecks from "./authChecks/SignupAuthChecks";
 
-const SignupPageEmail = () => {
+const SignupPage = () => {
   const {
+    username,
+    password,
+    confirmPassword,
+    isFormValid,
     email,
-    isValidEmail,
-    handleEmailChange
+    handleEmailChange,
+    handleUsernameChange,
+    handlePasswordChange,
+    handleConfirmPasswordChange
   } = SignupAuthChecks();
-  
+
   return (
     <div className="background-pattern">
       <div className="login-container">
@@ -27,13 +33,34 @@ const SignupPageEmail = () => {
           </div>
 
           <div className="right-box">
-            <div className="input-container">
+          <div className="input-container">
               <input 
                 type="email" 
                 placeholder="Email" 
                 className="login-input"
                 value={email}
                 onChange={handleEmailChange}
+              /> 
+              <input
+                type="text"
+                placeholder="Username"
+                className="login-input"
+                value={username}
+                onChange={handleUsernameChange}
+              />
+              <input
+                type="password"
+                placeholder="Password"
+                className="login-input"
+                value={password}
+                onChange={handlePasswordChange}
+              />
+              <input
+                type="password"
+                placeholder="Confirm Password"
+                className="login-input"
+                value={confirmPassword}
+                onChange={handleConfirmPasswordChange}
               />
             </div>
 
@@ -45,15 +72,11 @@ const SignupPageEmail = () => {
                   alt="Google logo"
                 />
               </button>
-              <button 
-                className={`submit-login ${isValidEmail ? "" : "disabled"}`}
-                disabled={!isValidEmail}
+              <button
+                className={`submit-login ${isFormValid ? "" : "disabled"}`}
+                disabled={!isFormValid}
               >
-                {isValidEmail ? (
-                  <Link to='/signup/info' className="submit-link">Next</Link>
-                  ) : (
-                    "Next"
-                  )}
+                Sign up
               </button>
             </div>
           </div>
@@ -63,4 +86,4 @@ const SignupPageEmail = () => {
   );
 };
 
-export default SignupPageEmail;
+export default SignupPage;

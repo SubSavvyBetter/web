@@ -2,29 +2,26 @@ import React, {useState, useEffect} from "react";
 
 const SignupAuthChecks = () => {
     const [email, setEmail] = useState("")
-    const [isValidEmail, setIsValidEmail] = useState(false);
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("")
     const [confirmPassword, setConfirmPassword] = useState("");
     const [isFormValid, setIsFormValid] = useState(false);
 
     useEffect(() => {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        const isValidEmail = emailRegex.test(email)
         const isUsernameValid = username.trim().length > 0;
-        const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+        const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$€£!%#*?&><()])[A-Za-z\d@$€£!%#*?&><()]{8,}$/;
         const isPasswordValid = passwordRegex.test(password);
         const isConfirmPasswordValid = password === confirmPassword;
 
-        setIsFormValid(isUsernameValid && isPasswordValid && isConfirmPasswordValid);
-    }, [username, password, confirmPassword]);
+        setIsFormValid(isValidEmail && isUsernameValid && isPasswordValid && isConfirmPasswordValid);
+    }, [email, username, password, confirmPassword]);
     
     //TODO: Add email + username + password to DB
 
     const handleEmailChange = (e) => {
-        const emailValue = e.target.value
-        setEmail(emailValue);
-
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        setIsValidEmail(emailRegex.test(emailValue)); 
+        setEmail(e.target.value);
     };
 
     const handleUsernameChange = (e) => {
@@ -41,7 +38,6 @@ const SignupAuthChecks = () => {
 
     return {
         email,
-        isValidEmail,
         username,
         password,
         confirmPassword,
