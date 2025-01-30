@@ -1,5 +1,5 @@
 import Sidebar from '../../components/SideBar/index.jsx';
-import Dashboard from '../../components/Dashboard/index.jsx'
+import Dashboard from '../../components/Dashboard/index.jsx';
 const HomePage = () => {
     return (
         <div className="flex w-screen">
