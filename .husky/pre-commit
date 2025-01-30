@@ -1,1 +1,4 @@
+#!/bin/sh
+
 yarn prettier
+sleep 1 # Adds a 5-second wait

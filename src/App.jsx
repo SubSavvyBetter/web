@@ -7,6 +7,7 @@ import SignupPageInfo from './welcome/SignupPageInfo';
 import HomePage from './layouts/HomePage/HomePage.jsx';
 import ProtectedRoute from './components/ProtectedRoute/index.jsx';
 import { SubscriptionsProvider } from './providers/SubscriptionsProvider.jsx';
+import Dashboard from './layouts/Dashboard/Dashboard.jsx';
 
 function App() {
     return (
@@ -18,6 +19,14 @@ function App() {
                         element={
                             <ProtectedRoute>
                                 <HomePage />
+                            </ProtectedRoute>
+                        }
+                    />
+                    <Route
+                        path="/dashboard"
+                        element={
+                            <ProtectedRoute>
+                                <Dashboard />
                             </ProtectedRoute>
                         }
                     />
