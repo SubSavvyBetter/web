@@ -1,3 +1,3 @@
 import SubscriptionList from './SubscriptionList.jsx';
 
-export default SubscriptionList
+export default SubscriptionList;

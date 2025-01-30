@@ -10,17 +10,19 @@ async function login(username, password) {
     };
 
     try {
-        const loginResponse = await customFetch('POST', ENDPOINTS.login, payload);
+        const loginResponse = await customFetch(
+            'POST',
+            ENDPOINTS.login,
+            payload
+        );
         setTokenLocalStorage(loginResponse.token);
-    }catch (error) {
+    } catch (error) {
         throw 'A03';
-    }    // save
-
+    } // save
 }
 
 export const signUp = async (data) => {
-    return await customFetch('POST', ENDPOINTS.singnUp, data)
-}
-
+    return await customFetch('POST', ENDPOINTS.singnUp, data);
+};
 
 export { login };

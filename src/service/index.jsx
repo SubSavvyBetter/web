@@ -11,7 +11,7 @@ export const customFetchAuth = async (
     if (!token) throw 'A01'; // thow missing token error code
     Object.assign(headers, { Authorization: `${token}` });
 
-     console.log(headers)
+    console.log(headers);
 
     return customFetch(method, endpoint, body, headers);
 };
@@ -21,22 +21,21 @@ async function customFetch(method, endpoint, body = null, headers = {}) {
     const payload = {
         method: method,
         headers: headers,
-    }
-    console.log(body)
+    };
+    console.log(body);
 
     if (body) {
-        payload.headers['Content-Type'] = "application/json";
+        payload.headers['Content-Type'] = 'application/json';
         payload.body = JSON.stringify(body);
     }
 
     const rawResponse = await fetch(finalUrl, payload);
-    try{
+    try {
         return await rawResponse.json();
-    } catch(error){
-        console.log(error)
-        return rawResponse
+    } catch (error) {
+        console.log(error);
+        return rawResponse;
     }
-
 }
 
 function getTokenFromLocalStorage() {

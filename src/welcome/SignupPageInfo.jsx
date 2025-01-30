@@ -18,17 +18,16 @@ const SignupPageInfo = () => {
 
     const handleClickSignUp = () => {
         const data = {
-            "name": username,
-            "mail": "email@example.com",
-            "password": password,
-            "profil_picture": "",
-            "admin": true
-          }
+            name: username,
+            mail: 'email@example.com',
+            password: password,
+            profil_picture: '',
+            admin: true,
+        };
         signUp(data)
-            .then((response)=> console.log(response))
-            .catch((error) => console.log(error))
-
-    }
+            .then((response) => console.log(response))
+            .catch((error) => console.log(error));
+    };
 
     return (
         <div className="background-pattern">

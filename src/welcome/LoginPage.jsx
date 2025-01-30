@@ -10,8 +10,8 @@ const LoginPage = () => {
     const navigate = useNavigate();
     const handleActionLogin = () => {
         login(username, password)
-            .then(()=> {
-                navigate('/')
+            .then(() => {
+                navigate('/');
             })
             .catch((error) => {
                 console.log(error);

@@ -1,3 +1,3 @@
 import SubscriptionsInfo from './SubscriptionsInfo.jsx';
 
-export default SubscriptionsInfo
+export default SubscriptionsInfo;
