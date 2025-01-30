@@ -1,1 +1,5 @@
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+sleep 5 # Adds a 5-second wait
 yarn prettier

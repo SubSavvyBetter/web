@@ -5,9 +5,9 @@ import LoginPage from './welcome/LoginPage';
 import SignupPageEmail from './welcome/SignupPageEmail';
 import SignupPageInfo from './welcome/SignupPageInfo';
 import HomePage from './layouts/HomePage/HomePage.jsx';
-import Dashboard from './layouts/Dashboard/Dashboard.jsx'
 import ProtectedRoute from './components/ProtectedRoute/index.jsx';
 import { SubscriptionsProvider } from './providers/SubscriptionsProvider.jsx';
+import Dashboard from './layouts/Dashboard/Dashboard.jsx'
 
 function App() {
     return (
@@ -22,7 +22,14 @@ function App() {
                             </ProtectedRoute>
                         }
                     />
-                    <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>}/>
+                 <Route
+                        path="/dashboard"
+                        element={
+                            <ProtectedRoute>
+                                <Dashboard />
+                            </ProtectedRoute>
+                        }
+                    />
                     <Route path="/login" element={<LoginPage />} />
                     <Route path="/signup" element={<SignupPageEmail />} />
                     <Route path="/signup/info" element={<SignupPageInfo />} />
