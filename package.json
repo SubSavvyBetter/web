@@ -18,8 +18,10 @@
         "@mui/material": "^6.4.1",
         "prettier": "^3.4.2",
         "react": "^19.0.0",
+        "react-charts": "^3.0.0-beta.57",
         "react-dom": "^19.0.0",
         "react-router-dom": "^7.1.1",
+        "recharts": "^2.15.1",
         "subsavvy-web": "file:"
     },
     "devDependencies": {
