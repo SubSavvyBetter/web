@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import './SignupPageInfo.css';
 import logo from '/logo.svg';
 import SignupAuthChecks from './authChecks/SignupAuthChecks';
+import { signUp } from '../service/auth/index.jsx';
 
 const SignupPageInfo = () => {
     const {
@@ -14,6 +15,20 @@ const SignupPageInfo = () => {
         handlePasswordChange,
         handleConfirmPasswordChange,
     } = SignupAuthChecks();
+
+    const handleClickSignUp = () => {
+        const data = {
+            "name": username,
+            "mail": "email@example.com",
+            "password": password,
+            "profil_picture": "",
+            "admin": true
+          }
+        signUp(data)
+            .then((response)=> console.log(response))
+            .catch((error) => console.log(error))
+
+    }
 
     return (
         <div className="background-pattern">
@@ -68,6 +83,7 @@ const SignupPageInfo = () => {
                             <button
                                 className={`submit-login ${isFormValid ? '' : 'disabled'}`}
                                 disabled={!isFormValid}
+                                onClick={handleClickSignUp}
                             >
                                 Sign up
                             </button>

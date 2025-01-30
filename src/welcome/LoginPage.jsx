@@ -1,17 +1,22 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import './LoginPage.css';
 import logo from '/logo.svg';
-import LoginAuthChecks from './authChecks/LoginAuthChecks.jsx';
+import { login } from '../service/auth/index.jsx';
 
 const LoginPage = () => {
-    const {
-        email,
-        password,
-        isFormValid,
-        handleEmailChange,
-        handlePasswordChange,
-    } = LoginAuthChecks();
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
+    const navigate = useNavigate();
+    const handleActionLogin = () => {
+        login(username, password)
+            .then(()=> {
+                navigate('/')
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    };
 
     return (
         <div className="background-pattern">
@@ -33,18 +38,17 @@ const LoginPage = () => {
                     <div className="right-box">
                         <div className="input-container">
                             <input
-                                type="email"
-                                placeholder="Email"
+                                placeholder="Username"
                                 className="login-input"
-                                value={email}
-                                onChange={handleEmailChange}
+                                value={username}
+                                onChange={(e) => setUsername(e.target.value)}
                             />
                             <input
                                 type="password"
                                 placeholder="Password"
                                 className="login-input"
                                 value={password}
-                                onChange={handlePasswordChange}
+                                onChange={(e) => setPassword(e.target.value)}
                             />
                         </div>
 
@@ -57,8 +61,8 @@ const LoginPage = () => {
                                 />
                             </button>
                             <button
-                                className={`submit-login ${isFormValid ? '' : 'disabled'}`}
-                                disabled={!isFormValid}
+                                className={`submit-login`}
+                                onClick={handleActionLogin}
                             >
                                 Log in
                             </button>

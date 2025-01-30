@@ -1,23 +1,42 @@
-const API_URL = 'http//localhost:8080';
+const API_URL = 'http://localhost:8080';
 
-export const customFetchAuth = async  (method, endpoint, body = null, headers = {}) => {
+export const customFetchAuth = async (
+    method,
+    endpoint,
+    body = null,
+    headers = {}
+) => {
     // if theres is headers passed then append token
     const token = getTokenFromLocalStorage();
     if (!token) throw 'A01'; // thow missing token error code
-    Object.assign(headers, { Authorization: `bearer ${token}` });
+    Object.assign(headers, { Authorization: `${token}` });
+
+     console.log(headers)
 
     return customFetch(method, endpoint, body, headers);
-}
+};
 
-async function customFetch(method, endpoint, body = {}, headers = {}) {
+async function customFetch(method, endpoint, body = null, headers = {}) {
     const finalUrl = `${API_URL}${endpoint}`;
-    const rawResponse = await fetch(finalUrl, {
+    const payload = {
         method: method,
         headers: headers,
-        body: body ? JSON.stringify(body) : null,
-    });
+    }
+    console.log(body)
 
-    return await rawResponse.json();
+    if (body) {
+        payload.headers['Content-Type'] = "application/json";
+        payload.body = JSON.stringify(body);
+    }
+
+    const rawResponse = await fetch(finalUrl, payload);
+    try{
+        return await rawResponse.json();
+    } catch(error){
+        console.log(error)
+        return rawResponse
+    }
+
 }
 
 function getTokenFromLocalStorage() {
@@ -30,4 +49,4 @@ function setTokenLocalStorage(token) {
     }
 }
 
-export { customFetch, customFetchAuth, setTokenLocalStorage };
+export { customFetch, setTokenLocalStorage };

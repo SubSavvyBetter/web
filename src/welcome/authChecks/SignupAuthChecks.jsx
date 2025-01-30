@@ -15,9 +15,11 @@ const SignupAuthChecks = () => {
         const isPasswordValid = passwordRegex.test(password);
         const isConfirmPasswordValid = password === confirmPassword;
 
+
         setIsFormValid(
             isUsernameValid && isPasswordValid && isConfirmPasswordValid
         );
+        console.log(isUsernameValid, isPasswordValid, isConfirmPasswordValid,isFormValid)
     }, [username, password, confirmPassword]);
 
     //TODO: Add email + username + password to DB

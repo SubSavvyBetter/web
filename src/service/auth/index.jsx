@@ -9,14 +9,18 @@ async function login(username, password) {
         password: password,
     };
 
-    const loginResponse = customFetch('POST', ENDPOINTS.login, payload);
-
-    if (loginResponse.status !== 200) {
+    try {
+        const loginResponse = await customFetch('POST', ENDPOINTS.login, payload);
+        setTokenLocalStorage(loginResponse.token);
+    }catch (error) {
         throw 'A03';
-    }
+    }    // save
 
-    // save
-    setTokenLocalStorage();
 }
+
+export const signUp = async (data) => {
+    return await customFetch('POST', ENDPOINTS.singnUp, data)
+}
+
 
 export { login };
