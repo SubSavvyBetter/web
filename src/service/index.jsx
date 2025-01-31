@@ -17,7 +17,7 @@ export const customFetchAuth = async (
 };
 
 async function customFetch(method, endpoint, body = null, headers = {}) {
-    console.log(API_URL)
+    console.log(API_URL);
     const finalUrl = `${API_URL}${endpoint}`;
     const payload = {
         method: method,
