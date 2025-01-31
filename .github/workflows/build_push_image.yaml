@@ -44,6 +44,8 @@ jobs:
               with:
                   context: .
                   push: true
+                  build-args: |
+                    VITE_API_URL=https://api.subsavvy.xyz
                   tags: ghcr.io/${{ steps.repo_name.outputs.repo }}:snap-${{ steps.commit_sha.outputs.sha }}
 
             - name: Extract version from branch name
@@ -79,6 +81,8 @@ jobs:
               with:
                   context: .
                   push: true
+                  build-args: |
+                    VITE_API_URL=https://api.subsavvy.xyz
                   tags: |
                       ghcr.io/${{ steps.repo_name.outputs.repo }}:${{ steps.increment_version.outputs.new_version }}
                       ghcr.io/${{ steps.repo_name.outputs.repo }}:${{ steps.version.outputs.version }}-latest
@@ -91,6 +95,8 @@ jobs:
               with:
                   context: .
                   push: true
+                  build-args: |
+                    VITE_API_URL=https://api.subsavvy.xyz
                   tags: ghcr.io/${{ steps.repo_name.outputs.repo }}:latest
 
             - name: Create Git tag (Release)
