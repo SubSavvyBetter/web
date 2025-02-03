@@ -23,7 +23,6 @@ async function customFetch(method, endpoint, body = null, headers = {}) {
         method: method,
         headers: headers,
     };
-    console.log(body);
 
     if (body) {
         payload.headers['Content-Type'] = 'application/json';
@@ -31,12 +30,8 @@ async function customFetch(method, endpoint, body = null, headers = {}) {
     }
 
     const rawResponse = await fetch(finalUrl, payload);
-    try {
-        return await rawResponse.json();
-    } catch (error) {
-        console.log(error);
-        return rawResponse;
-    }
+    if (rawResponse.status >= 400) throw new Error('Failed');
+    return rawResponse.json();
 }
 
 function getTokenFromLocalStorage() {

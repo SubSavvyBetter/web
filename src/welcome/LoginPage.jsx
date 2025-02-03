@@ -7,14 +7,21 @@ import { login } from '../service/auth/index.jsx';
 const LoginPage = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const [isError, setIsError] = useState(false);
     const navigate = useNavigate();
+
+    const handleKeyPress = (ev) => {
+        if (ev.key === 'Enter') handleActionLogin();
+    };
     const handleActionLogin = () => {
         login(username, password)
             .then(() => {
+                console.log('test');
                 navigate('/');
             })
             .catch((error) => {
-                console.log(error);
+                console.log('login failed');
+                setIsError(true);
             });
     };
 
@@ -48,8 +55,15 @@ const LoginPage = () => {
                                 placeholder="Password"
                                 className="login-input"
                                 value={password}
+                                onKeyDown={handleKeyPress}
                                 onChange={(e) => setPassword(e.target.value)}
                             />
+                            {isError && (
+                                <div className="text-red-600 text-sm mt-2 text-left">
+                                    Invalid username or password. Please try
+                                    again.
+                                </div>
+                            )}
                         </div>
 
                         <div className="login-actions">

@@ -8,18 +8,55 @@ import {
     Checkbox,
 } from '@mui/material';
 
+const MAX_INT_VALUE = 2147483647;
+
 const AddSubscriptionModal = ({ open, handleClose, handleSubmit }) => {
     const [name, setName] = useState('');
     const [price, setPrice] = useState('');
     const [startDate, setStartDate] = useState('');
     const [endDate, setEndDate] = useState('');
     const [trial, setTrial] = useState(false);
+    const [priceError, setPriceError] = useState('');
+
+    const validatePrice = (value) => {
+        const numValue = Number(value);
+        if (numValue > MAX_INT_VALUE) {
+            setPriceError('Price exceeds maximum allowed value');
+            return false;
+        }
+        if (numValue < 0) {
+            setPriceError('Price cannot be negative');
+            return false;
+        }
+        setPriceError('');
+        return true;
+    };
+
+    const handlePriceChange = (e) => {
+        if (!trial) {
+            const value = e.target.value;
+            setPrice(value);
+            validatePrice(value);
+        }
+    };
+
+    const handleTrialChange = (e) => {
+        const isTrialChecked = e.target.checked;
+        setTrial(isTrialChecked);
+        if (isTrialChecked) {
+            setPrice('0');
+            setPriceError('');
+        }
+    };
 
     const handleClickSubmit = (e) => {
         e.preventDefault();
+        if (!trial && !validatePrice(price)) {
+            return;
+        }
         handleSubmit({
             name,
-            price: Number(price),
+            price: trial ? 0 : Number(price),
             start_date: startDate,
             end_date: endDate,
             trial,
@@ -30,6 +67,7 @@ const AddSubscriptionModal = ({ open, handleClose, handleSubmit }) => {
         setStartDate('');
         setEndDate('');
         setTrial(false);
+        setPriceError('');
     };
 
     const modalStyle = {
@@ -80,10 +118,27 @@ const AddSubscriptionModal = ({ open, handleClose, handleSubmit }) => {
                     <TextField
                         label="Price"
                         type="number"
-                        value={price}
-                        onChange={(e) => setPrice(e.target.value)}
+                        value={trial ? '0' : price}
+                        onChange={handlePriceChange}
                         required
-                        sx={inputStyle}
+                        error={!!priceError}
+                        helperText={priceError}
+                        disabled={trial}
+                        inputProps={{
+                            min: 0,
+                            max: MAX_INT_VALUE,
+                            step: '0.01',
+                        }}
+                        FormHelperTextProps={{
+                            sx: { color: '#ef4444' },
+                        }}
+                        sx={{
+                            ...inputStyle,
+                            '& .Mui-disabled': {
+                                '-webkit-text-fill-color': '#666 !important',
+                                backgroundColor: '#2f2b3a',
+                            },
+                        }}
                     />
                     <TextField
                         label="Start Date"
@@ -107,7 +162,7 @@ const AddSubscriptionModal = ({ open, handleClose, handleSubmit }) => {
                         control={
                             <Checkbox
                                 checked={trial}
-                                onChange={(e) => setTrial(e.target.checked)}
+                                onChange={handleTrialChange}
                                 sx={{ color: '#fff' }}
                             />
                         }
@@ -118,6 +173,7 @@ const AddSubscriptionModal = ({ open, handleClose, handleSubmit }) => {
                         <Button
                             variant="contained"
                             type="submit"
+                            disabled={!trial && !!priceError}
                             sx={{
                                 bgcolor: '#6366f1',
                                 '&:hover': { bgcolor: '#4f46e5' },

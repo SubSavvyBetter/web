@@ -15,8 +15,9 @@ const SubscriptionsProvider = ({ children }) => {
         try {
             const subscriptions = await getSubscriptions();
             setSubscriptions(subscriptions);
+            console.log(subscriptions);
         } catch (error) {
-            console.log(error);
+            setSubscriptions([]);
             throw 'No subscriptions fond :)';
         }
     };

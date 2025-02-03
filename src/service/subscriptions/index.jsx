@@ -16,6 +16,7 @@ export const getSubscription = async (id) => {
 
 export const updateSubscription = async (id, data) => {
     const updatedUrl = `${ENDPOINTS.subscriptions}/${id}`;
+    console.log(data);
     return await customFetchAuth('PUT', updatedUrl, data);
 };
 
