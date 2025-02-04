@@ -45,23 +45,11 @@ const Sidebar = () => {
             {/* Bottom Section */}
             <div className="flex flex-col items-center space-y-4">
                 <div className="w-8 h-8 rounded-full bg-gray-400"></div>
-
-                <div className="flex flex-col items-center gap-4 w-full">
-                    <p className="text-gray-300 text-center">Besoin d'aide ?</p>
-
-                    <div
-                        className="text-gray-300 hover:text-white cursor-pointer w-full text-center py-2 hover:bg-[#2f2b3a] rounded transition-colors"
-                        onClick={() => handleNavigate('/settings')}
-                    >
-                        Paramètres
-                    </div>
-
-                    <div
-                        className="text-gray-300 hover:text-white cursor-pointer w-full text-center py-2 hover:bg-[#2f2b3a] rounded transition-colors"
-                        onClick={handleLogout}
-                    >
-                        Se déconnecter
-                    </div>
+                <div
+                    className="text-gray-300 hover:text-white cursor-pointer w-full text-center py-2 hover:bg-[#2f2b3a] rounded transition-colors"
+                    onClick={handleLogout}
+                >
+                    Logout
                 </div>
             </div>
         </div>

@@ -242,7 +242,7 @@ const SubscriptionCard = ({
                             className="text-gray-400 cursor-pointer"
                             onDoubleClick={() => handleDoubleClick('price')}
                         >
-                            ${values.price}
+                            {values.price}€
                         </div>
                     )}
                     {trial && <div className="text-yellow-400">Trial</div>}

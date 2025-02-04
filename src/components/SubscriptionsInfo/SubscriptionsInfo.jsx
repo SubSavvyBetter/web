@@ -29,7 +29,7 @@ const SubscriptionsInfo = () => {
             </div>
             <div className="bg-[#1e1b2e] rounded-lg p-6 text-center">
                 <h3 className="text-gray-400 text-sm mb-2">Total Amount</h3>
-                <p className="text-white text-2xl font-bold">${sumPrice}</p>
+                <p className="text-white text-2xl font-bold">{sumPrice}€</p>
             </div>
         </div>
     );

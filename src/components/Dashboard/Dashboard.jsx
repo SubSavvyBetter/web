@@ -170,7 +170,6 @@ const Dashboard = () => {
                     </h2>
                     <div className="flex flex-col items-center justify-center h-[250px] sm:h-[300px]">
                         <div className="text-3xl md:text-4xl font-bold text-green-500 mb-2">
-                            $
                             {monthlyData.length
                                 ? (
                                       monthlyData.reduce(
@@ -179,6 +178,7 @@ const Dashboard = () => {
                                       ) / monthlyData.length
                                   ).toFixed(2)
                                 : 0}
+                            €
                         </div>
                         <div className="text-gray-400">per month</div>
                     </div>
