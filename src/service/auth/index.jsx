@@ -1,4 +1,8 @@
-import { customFetch, setTokenLocalStorage } from '../index.jsx';
+import {
+    customFetch,
+    setTokenLocalStorage,
+    customFetchAuth,
+} from '../index.jsx';
 import { ENDPOINTS } from './constants.jsx';
 
 async function login(username, password) {
@@ -25,4 +29,7 @@ export const signUp = async (data) => {
     return await customFetch('POST', ENDPOINTS.singnUp, data);
 };
 
+export const logout = async () => {
+    localStorage.removeItem('authToken');
+};
 export { login };

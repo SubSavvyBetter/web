@@ -41,7 +41,7 @@ const SubscriptionList = ({ filter = '' }) => {
     const hasMore = displayedSubscriptions.length < subscriptions.length;
 
     return (
-        <div className="mt-6 flex flex-col h-[calc(100vh-300px)]">
+        <div className="mt-6 flex flex-col grow">
             {' '}
             {/* Adjust height as needed */}
             <div className="flex items-center mb-4">

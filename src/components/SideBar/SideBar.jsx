@@ -1,4 +1,5 @@
 import { useNavigate } from 'react-router-dom';
+import { logout } from '../../service/auth/index.jsx';
 
 const Sidebar = () => {
     const navigate = useNavigate();
@@ -8,8 +9,7 @@ const Sidebar = () => {
     };
 
     const handleLogout = () => {
-        // Add your logout logic here
-        // Then navigate to login
+        logout();
         navigate('/login');
     };
 

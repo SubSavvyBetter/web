@@ -38,25 +38,25 @@ const NotificationsPage = () => {
     ];
 
     return (
-        <>
-            <h1 className="text-2xl text-white mb-6">Notifications</h1>
-
+        <div className="p-4 md:p-6 h-screen overflow-y-auto bg-[#13111c]">
+            <h1 className="text-xl md:text-2xl text-white mb-4 md:mb-6">
+                Notifications
+            </h1>
             <div className="space-y-4">
                 {notifications.map((notification) => (
                     <div
                         key={notification.id}
-                        className="bg-[#1e1b2e] rounded-lg p-4 flex gap-4 hover:bg-[#2f2b3a] transition-colors cursor-pointer"
+                        className="bg-[#1e1b2e] rounded-lg p-4 flex flex-col sm:flex-row gap-4 hover:bg-[#2f2b3a] transition-colors cursor-pointer"
                     >
-                        <div className="w-[30%] max-w-[150px]">
+                        <div className="w-full sm:w-[30%] max-w-[150px] mx-auto sm:mx-0">
                             <img
                                 src={notification.image}
                                 alt={notification.title}
                                 className="rounded-lg w-full h-auto object-cover"
                             />
                         </div>
-
                         <div className="flex-1">
-                            <h2 className="text-white text-lg font-semibold mb-2">
+                            <h2 className="text-white text-base md:text-lg font-semibold mb-2">
                                 {notification.title}
                             </h2>
                             <p className="text-gray-400 mb-2">
@@ -71,7 +71,7 @@ const NotificationsPage = () => {
                     </div>
                 ))}
             </div>
-        </>
+        </div>
     );
 };
 

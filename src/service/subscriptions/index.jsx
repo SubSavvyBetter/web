@@ -22,5 +22,10 @@ export const updateSubscription = async (id, data) => {
 
 export const deleteSubscription = async (id) => {
     const updatedUrl = `${ENDPOINTS.subscriptions}/${id}`;
-    return await customFetchAuth('DELETE', updatedUrl);
+    try {
+        const rawResponse = await customFetchAuth('DELETE', updatedUrl);
+        return rawResponse;
+    } catch (error) {
+        console.log(error);
+    }
 };
