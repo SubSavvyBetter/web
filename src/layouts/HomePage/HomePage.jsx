@@ -12,7 +12,7 @@ const HomePage = () => {
     const { subscriptions } = useSubscriptions();
 
     const handleKeyPress = (event) => {
-        if (event.altKey && event.key.toLowerCase() === 'n') {
+        if (event.shiftKey && event.key.toLowerCase() === 'n') {
             checkTrialSubscriptions();
         }
     };
